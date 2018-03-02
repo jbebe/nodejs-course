@@ -1,0 +1,62 @@
+<% include header.ejs %>
+
+<h1>Task #1</h1>
+
+<table class="table table-sm task-evaluation-table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Neptun code</th>
+        <th scope="col">Late</th>
+        <th scope="col">Result</th>
+        <th scope="col">Comment</th>
+        <% if (isAdmin){ %>
+            <th scope="col">Attachment</th>
+        <% } %>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">ABC123</th>
+        <td class="late-chkbox"><input type="checkbox" disabled></td>
+        <td class="result-value">OK</td>
+        <td class="comment-value">No comment.</td>
+        <% if (isAdmin){ %>
+        <td>
+            <a href="/api/task/1/attachment/ABC123">[attachment]</a>
+        </td>
+        <% } %>
+    </tr>
+    <tr class="table-danger">
+        <th scope="row">DEF456</th>
+        <td class="late-chkbox"><input type="checkbox" disabled checked></td>
+        <td class="result-value">Bad</td>
+        <td class="comment-value">It's really bad. And it is also a very log comment. Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+        </td>
+        <% if (isAdmin){ %>
+        <td></td>
+        <% } %>
+    </tr>
+    <tr>
+        <th scope="row">ABC123</th>
+        <td class="late-chkbox"><input type="checkbox" disabled></td>
+        <td class="result-value">OK</td>
+        <td class="comment-value">No comment.</td>
+    </tr>
+    <tr>
+        <th scope="row">ABC123</th>
+        <td class="late-chkbox"><input type="checkbox" disabled></td>
+        <td class="result-value">OK</td>
+        <td class="comment-value">No comment.</td>
+        <% if (isAdmin){ %>
+        <td>
+            <a href="/api/task/1/attachment/ABC123">[attachment]</a>
+        </td>
+        <% } %>
+    </tr>
+    </tbody>
+</table>
+
+<% include footer.ejs %>

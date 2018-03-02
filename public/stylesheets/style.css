@@ -1,10 +1,13 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.admin-warning {
+  margin-bottom: 2rem;
 }
 
 .menu-side {
@@ -13,4 +16,9 @@ a {
 
 .content-side {
 
+}
+
+#info-container > textarea {
+  width: 100%;
+  min-height: 10rem;
 }

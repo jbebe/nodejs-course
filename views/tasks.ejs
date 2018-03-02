@@ -4,8 +4,12 @@
 
 <div class="task-list">
     <div>
-        <h3>Task #1 (deadline: 2018-02-02 23:59)</h3>
-        <p>
+        <h3><span class="task-title">Task #1</span> (deadline: <span class="task-date">2018-02-02 23:59</span>)
+            <% if (isAdmin){ %>
+                <a href="#" class="task-delete">[delete]</a>
+            <% } %>
+        </h3>
+        <p class="task-description">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
             scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
@@ -13,8 +17,12 @@
         </p>
     </div>
     <div>
-        <h3>Task #2 (deadline: 2018-02-02 23:59)</h3>
-        <p>
+        <h3><span class="task-title">Task #2</span> (deadline: <span class="task-date">2018-02-02 23:59</span>)
+            <% if (isAdmin){ %>
+                <a href="#" class="task-delete">[delete]</a>
+            <% } %>
+        </h3>
+        <p class="task-description">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
             scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
@@ -22,14 +30,37 @@
         </p>
     </div>
     <div>
-        <h3>Task #2 (deadline: 2018-02-02 23:59)</h3>
-        <p>
+        <h3><span class="task-title">Task #3</span> (deadline: <span class="task-date">2018-02-02 23:59</span>)
+            <% if (isAdmin){ %>
+                <a href="#" class="task-delete">[delete]</a>
+            <% } %>
+        </h3>
+        <p class="task-description">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
             scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
             electronic typesetting, remaining essentially unchanged.
         </p>
     </div>
+    <% if (isAdmin){ %>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Create new task</h5>
+            <div class="card-text">
+                <form>
+                    <div class="form-group form-row">
+                        <input type="text" class="form-control col-8" placeholder="Taskname">
+                        <input type="date" class="form-control col-4">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <a href="#" class="btn btn-primary">Create</a>
+        </div>
+    </div>
+    <% } %>
 </div>
 
 <% include footer.ejs %>
