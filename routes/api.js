@@ -1,24 +1,71 @@
-const AdminPassword = require("../config").AdminPassword;
-const crypto = require('crypto');
 const express = require('express');
-const router = express.Router();
+const { check } = require('express-validator/check');
 
-router.post('/admin', function(req, res, next) {
-  const reqPassword = req.body.password;
-  if (reqPassword === AdminPassword){
-    const passHash = crypto.createHmac('sha256', AdminPassword).digest('hex');
-    res.cookie('admin-pass', passHash);
-    console.log(`admin hash set in cookie: ${passHash}`);
-    res.status(200);
-  } else {
-    res.status(404);
-  }
-  res.end();
-});
+const {
+  ExportUploadParamsMW,
+  ValidateUploadParamsMW,
+  UploadToDbMW
+} = require("../middlewares/upload");
+const {
+  ApiLoginAdminMW,
+  ApiLogoutAdminMW,
+  AdminApiWallMW
+} = require("../middlewares/auth");
+const {
+  InfoToDbMW,
+  ValidateApiParamsMW,
+  DeleteTaskMW, UploadTaskParamsToDbMW,
+  UploadNewTaskToDbMW,
+  UploadSubmissionParamsToDbMW
+} = require("../middlewares/api");
 
-router.delete('/admin', function(req, res, next) {
-  res.clearCookie('admin-pass');
-  res.end();
-});
+const api = express.Router();
 
-module.exports = router;
+api.post('/admin', ApiLoginAdminMW);
+
+api.delete('/admin', ApiLogoutAdminMW);
+
+api.post('/upload',
+  [
+    check('neptun').matches(/^[a-zA-Z\d]{6}$/),
+    check('task').exists()
+  ],
+  ValidateUploadParamsMW,
+  ExportUploadParamsMW,
+  UploadToDbMW
+);
+
+api.put('/info', [check('content').exists()],
+  AdminApiWallMW,
+  ValidateApiParamsMW,
+  InfoToDbMW
+);
+
+api.delete('/task/:id', [check('id').exists()],
+  AdminApiWallMW,
+  ValidateApiParamsMW,
+  DeleteTaskMW
+);
+
+api.put('/task/:id',
+  AdminApiWallMW,
+  UploadTaskParamsToDbMW
+);
+
+api.post('/task',
+  [
+    check('title').exists(),
+    check('date').exists(),
+    check('description').exists()
+  ],
+  AdminApiWallMW,
+  ValidateApiParamsMW,
+  UploadNewTaskToDbMW
+);
+
+api.put('/submission/:id',
+  AdminApiWallMW,
+  UploadSubmissionParamsToDbMW
+);
+
+module.exports = api;

@@ -1,3 +1,17 @@
+$('.task-delete').click(function(event){
+  event.preventDefault();
+  const $link = $(this);
+  $.ajax({
+    type: 'delete',
+    url: $link.attr('href')
+  }).done((data) => {
+    location.reload();
+  }).fail(() => {
+    console.log('Could not delete task!');
+  });
+  return false;
+});
+
 $('.task-title').dblclick(function(event){
   const $this = $(this);
   $this.html(`<input type="text" value="${$this.text()}">`);
@@ -13,6 +27,41 @@ function onTitleEscape(event){
     let $this = $(this);
     let inputValue = $this.find('input').val();
     inputValue = inputValue || '<missing input>';
+    const id = $this.data('id');
+    $.ajax({
+      type: 'put',
+      url: `/api/task/${id}`,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        title: inputValue
+      })
+    }).done((data) => {
+      // location.reload();
+    }).fail(() => {
+      console.log('Could not set new title!');
+    });
+    $this.text(inputValue);
+  }
+}
+
+function onDateEscape(event){
+  if (event.key === 'Escape'){
+    let $this = $(this);
+    let inputValue = $this.find('input').val();
+    inputValue = inputValue || '<missing input>';
+    const id = $this.data('id');
+    $.ajax({
+      type: 'put',
+      url: `/api/task/${id}`,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        date: (new Date(inputValue)).toJSON()
+      })
+    }).done((data) => {
+      // location.reload();
+    }).fail(() => {
+      console.log('Could not set new date!');
+    });
     $this.text(inputValue);
   }
 }
@@ -22,7 +71,7 @@ $('.task-date').dblclick(function(event){
   $this.html(`<input type="datetime-local" value="${$this.text()}">`);
   $this.find('input').focus();
   if (!$this.data('isEscapeRegistered')){
-    $this.keyup(onTitleEscape);
+    $this.keyup(onDateEscape);
     $this.data('isEscapeRegistered', true);
   }
 });

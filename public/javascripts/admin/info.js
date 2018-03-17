@@ -21,5 +21,17 @@ infoContainer.keydown(function(event){
   if (event.key === 'Escape'){
     markdownText = $(this).find('textarea').val();
     md2html(markdownText);
+    $.ajax({
+      type: 'put',
+      url: '/api/info',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        content: markdownText
+      })
+    }).done((data) => {
+      // location.reload();
+    }).fail(() => {
+      console.log('Could not save info text!');
+    });
   }
 });

@@ -17,9 +17,9 @@
     <tbody>
     <tr>
         <th scope="row">ABC123</th>
-        <td class="late-chkbox"><input type="checkbox" disabled></td>
-        <td class="result-value">OK</td>
-        <td class="comment-value">No comment.</td>
+        <td class="late-chkbox"><input type="checkbox" disabled data-id="1"></td>
+        <td class="result-value" data-id="1">OK</td>
+        <td class="comment-value" data-id="1">No comment.</td>
         <% if (isAdmin){ %>
         <td>
             <a href="/api/task/1/attachment/ABC123">[attachment]</a>
@@ -28,9 +28,9 @@
     </tr>
     <tr class="table-danger">
         <th scope="row">DEF456</th>
-        <td class="late-chkbox"><input type="checkbox" disabled checked></td>
-        <td class="result-value">Bad</td>
-        <td class="comment-value">It's really bad. And it is also a very log comment. Lorem Ipsum is simply dummy text of the printing and
+        <td class="late-chkbox"><input type="checkbox" disabled checked data-id="2"></td>
+        <td class="result-value" data-id="2">Bad</td>
+        <td class="comment-value" data-id="2">It's really bad. And it is also a very log comment. Lorem Ipsum is simply dummy text of the printing and
             typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
             unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
@@ -41,13 +41,13 @@
     </tr>
     <tr>
         <th scope="row">ABC123</th>
-        <td class="late-chkbox"><input type="checkbox" disabled></td>
+        <td class="late-chkbox"><input type="checkbox" disabled data-id="3"></td>
         <td class="result-value">OK</td>
         <td class="comment-value">No comment.</td>
     </tr>
     <tr>
         <th scope="row">ABC123</th>
-        <td class="late-chkbox"><input type="checkbox" disabled></td>
+        <td class="late-chkbox"><input type="checkbox" disabled data-id="4"></td>
         <td class="result-value">OK</td>
         <td class="comment-value">No comment.</td>
         <% if (isAdmin){ %>

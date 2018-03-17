@@ -2,14 +2,24 @@
 
 <h1>Upload</h1>
 
-<form>
+<% if (uploadStatus == 'ok') { %>
+<div class="alert alert-success" role="alert">
+    File uploaded successfully!
+</div>
+<% } else if (uploadStatus === 'error') { %>
+<div class="alert alert-danger" role="alert">
+    Error during file upload!
+</div>
+<% } %>
+
+<form method="post" action="/api/upload" enctype="multipart/form-data">
     <div class="form-group">
         <label for="uploadNeptunInput">Neptun code</label>
-        <input type="text" id="uploadNeptunInput" class="form-control">
+        <input type="text" id="uploadNeptunInput" class="form-control" name="neptun">
     </div>
     <div class="form-group">
         <label for="taskSelect">Task</label>
-        <select class="form-control" id="taskSelect">
+        <select class="form-control" id="taskSelect" name="task">
             <option>Task #1</option>
             <option>Task #2</option>
             <option>Task #3</option>
@@ -18,7 +28,7 @@
     </div>
     <div class="form-group row">
         <label for="fileUpload" class="col-sm-2">Submission</label>
-        <input type="file" class="form-control-file col-sm-10" id="fileUpload">
+        <input type="file" class="form-control-file col-sm-10" id="fileUpload" name="file">
     </div>
     <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
 </form>

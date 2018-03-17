@@ -2,7 +2,20 @@
 $('.late-chkbox > input')
   .prop('disabled', false)
   .change(function(event){
-    console.log('changed');
+    const $this = $(this);
+    const id = $this.data('id');
+    $.ajax({
+      type: 'put',
+      url: `/api/submission/${id}`,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        late: $this.prop('checked')
+      })
+    }).done((data) => {
+      // location.reload();
+    }).fail(() => {
+      console.log('Could not change late state!');
+    });
   });
 
 $('.result-value').dblclick(function(event){
@@ -19,7 +32,20 @@ $('.result-value').dblclick(function(event){
 function onResultEscape(event){
   if (event.key === 'Escape'){
     let $this = $(this);
+    const id = $this.data('id');
     const inputValue = $this.find('select').val();
+    $.ajax({
+      type: 'put',
+      url: `/api/submission/${id}`,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        rating: inputValue
+      })
+    }).done((data) => {
+      // location.reload();
+    }).fail(() => {
+      console.log('Could not change result!');
+    });
     $this.text(inputValue);
   }
 }
@@ -35,6 +61,19 @@ function onCommentEscape(event){
   if (event.key === 'Escape'){
     let $this = $(this);
     const inputValue = $this.find('textarea').val();
+    const id = $this.data('id');
+    $.ajax({
+      type: 'put',
+      url: `/api/submission/${id}`,
+      contentType: 'application/json',
+      data: JSON.stringify({
+        comment: inputValue
+      })
+    }).done((data) => {
+      // location.reload();
+    }).fail(() => {
+      console.log('Could not change result!');
+    });
     $this.text(inputValue);
   }
 }
