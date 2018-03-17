@@ -3,6 +3,9 @@ const { CourseCode, AdminPassword } = require("../config");
 
 const adminPasswordHash = crypto.createHmac('sha256', AdminPassword).digest('hex');
 
+/*
+    Ez a MW adja hozzá az ejs behelyettesítésekhez az admin kapcsolót.
+ */
 exports.PartialRenderAdminMW = function(req, res, next){
   const isAdmin = ('admin-pass' in req.cookies) && req.cookies['admin-pass'] === adminPasswordHash;
   res.locals.template = {
@@ -11,6 +14,9 @@ exports.PartialRenderAdminMW = function(req, res, next){
   next();
 };
 
+/*
+    Ez a MW rendereli ki az index oldalt.
+ */
 exports.RenderIndexMW = function(req, res, next){
   const template = {
     title: `${CourseCode}/info`,
@@ -22,6 +28,9 @@ exports.RenderIndexMW = function(req, res, next){
   res.render('info', res.locals.template);
 };
 
+/*
+    Ez a MW rendereli ki a feladat értékelés oldalt.
+ */
 exports.RenderSingleTaskMW = function(req, res, next) {
   const template = {
     title: `${CourseCode}/task ${req.param('id')}`,
@@ -32,6 +41,9 @@ exports.RenderSingleTaskMW = function(req, res, next) {
   res.render('singleTask', res.locals.template);
 };
 
+/*
+    Ez a MW rendereli ki a feladatkiírások odlalát.
+ */
 exports.RenderTasksMW = function(req, res, next) {
   const template = {
     title: `${CourseCode}/tasks`,
@@ -42,6 +54,9 @@ exports.RenderTasksMW = function(req, res, next) {
   res.render('tasks', res.locals.template);
 };
 
+/*
+    Ez a MW rendereli ki a feltöltő oldalt.
+ */
 exports.RenderUploadMW = function(req, res, next) {
   const template = {
     title: `${CourseCode}/upload`,
