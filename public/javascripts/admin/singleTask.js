@@ -3,12 +3,14 @@ $('.late-chkbox > input')
   .prop('disabled', false)
   .change(function(event){
     const $this = $(this);
-    const id = $this.data('id');
+    const taskId = $this.closest('tr').data('task-id');
+    const userId = $this.closest('tr').data('user-id');
     $.ajax({
       type: 'put',
-      url: `/api/submission/${id}`,
+      url: `/api/submission/${taskId}`,
       contentType: 'application/json',
       data: JSON.stringify({
+        neptun: userId,
         late: $this.prop('checked')
       })
     }).done((data) => {
@@ -32,13 +34,15 @@ $('.result-value').dblclick(function(event){
 function onResultEscape(event){
   if (event.key === 'Escape'){
     let $this = $(this);
-    const id = $this.data('id');
+    const taskId = $this.closest('tr').data('task-id');
+    const userId = $this.closest('tr').data('user-id');
     const inputValue = $this.find('select').val();
     $.ajax({
       type: 'put',
-      url: `/api/submission/${id}`,
+      url: `/api/submission/${taskId}`,
       contentType: 'application/json',
       data: JSON.stringify({
+        neptun: userId,
         rating: inputValue
       })
     }).done((data) => {
@@ -61,12 +65,14 @@ function onCommentEscape(event){
   if (event.key === 'Escape'){
     let $this = $(this);
     const inputValue = $this.find('textarea').val();
-    const id = $this.data('id');
+    const taskId = $this.closest('tr').data('task-id');
+    const userId = $this.closest('tr').data('user-id');
     $.ajax({
       type: 'put',
-      url: `/api/submission/${id}`,
+      url: `/api/submission/${taskId}`,
       contentType: 'application/json',
       data: JSON.stringify({
+        neptun: userId,
         comment: inputValue
       })
     }).done((data) => {

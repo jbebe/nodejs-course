@@ -59,13 +59,13 @@ exports.UploadNewTaskToDbMW = function(req, res, next){
  */
 exports.UploadSubmissionParamsToDbMW = function(req, res, next){
   if (req.body.late){
-    console.log(`Uploading task (${req.params.id}) property: late (${req.body.late}) to DB...`);
+    console.log(`Uploading task (${req.params.taskId}) property: late (${req.body.late}) to DB...`);
   }
   if (req.body.rating){
-    console.log(`Uploading task (${req.params.id}) property: rating (${req.body.rating}) to DB...`);
+    console.log(`Uploading task (${req.params.taskId}) property: rating (${req.body.rating}) to DB...`);
   }
   if (req.body.comment){
-    console.log(`Uploading task (${req.params.id}) property: comment (${req.body.comment}) to DB...`);
+    console.log(`Uploading task (${req.params.taskId}) property: comment (${req.body.comment}) to DB...`);
   }
   res.end();
 };

@@ -63,7 +63,7 @@ api.post('/task',
   UploadNewTaskToDbMW
 );
 
-api.put('/submission/:id',
+api.put('/submission/:taskId',
   AdminApiWallMW,
   UploadSubmissionParamsToDbMW
 );

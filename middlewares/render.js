@@ -32,10 +32,32 @@ exports.RenderIndexMW = function(req, res, next){
     Ez a MW rendereli ki a feladat értékelés oldalt.
  */
 exports.RenderSingleTaskMW = function(req, res, next) {
+  const taskId = req.param('id');
   const template = {
-    title: `${CourseCode}/task ${req.param('id')}`,
+    title: `${CourseCode}/task ${taskId}`,
     courseCode: CourseCode,
-    currentPage: 'singleTask'
+    currentPage: 'singleTask',
+    taskId: taskId,
+    ratings: [
+      {
+        neptun: 'ABC123',
+        isLate: true,
+        result: 'OK',
+        comment: 'S\'okay...'
+      },
+      {
+        neptun: 'DEF456',
+        isLate: false,
+        result: 'BAD',
+        comment: 'Not okay'
+      },
+      {
+        neptun: 'ZXY123',
+        isLate: false,
+        result: 'OK',
+        comment: ''
+      }
+    ]
   };
   Object.assign(res.locals.template, template);
   res.render('singleTask', res.locals.template);

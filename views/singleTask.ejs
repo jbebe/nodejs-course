@@ -15,47 +15,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <th scope="row">ABC123</th>
-        <td class="late-chkbox"><input type="checkbox" disabled data-id="1"></td>
-        <td class="result-value" data-id="1">OK</td>
-        <td class="comment-value" data-id="1">No comment.</td>
-        <% if (isAdmin){ %>
-        <td>
-            <a href="/api/task/1/attachment/ABC123">[attachment]</a>
-        </td>
-        <% } %>
-    </tr>
-    <tr class="table-danger">
-        <th scope="row">DEF456</th>
-        <td class="late-chkbox"><input type="checkbox" disabled checked data-id="2"></td>
-        <td class="result-value" data-id="2">Bad</td>
-        <td class="comment-value" data-id="2">It's really bad. And it is also a very log comment. Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-            unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-        </td>
-        <% if (isAdmin){ %>
-        <td></td>
-        <% } %>
-    </tr>
-    <tr>
-        <th scope="row">ABC123</th>
-        <td class="late-chkbox"><input type="checkbox" disabled data-id="3"></td>
-        <td class="result-value">OK</td>
-        <td class="comment-value">No comment.</td>
-    </tr>
-    <tr>
-        <th scope="row">ABC123</th>
-        <td class="late-chkbox"><input type="checkbox" disabled data-id="4"></td>
-        <td class="result-value">OK</td>
-        <td class="comment-value">No comment.</td>
-        <% if (isAdmin){ %>
-        <td>
-            <a href="/api/task/1/attachment/ABC123">[attachment]</a>
-        </td>
-        <% } %>
-    </tr>
+    <% for (const rating of ratings){ %>
+        <tr class="<% if (rating.result !== 'OK') { %>table-danger<% } %>" data-task-id="<%= taskId %>" data-user-id="<%= rating.neptun %>">
+            <th scope="row"><%= rating.neptun %></th>
+            <td class="late-chkbox"><input type="checkbox" disabled <% if (rating.isLate){ %>checked<% } %>></td>
+            <td class="result-value"><%= rating.result %></td>
+            <td class="comment-value"><%= rating.comment %></td>
+            <% if (isAdmin){ %>
+            <td>
+                <a href="/api/task/<%= taskId %>/attachment/<%= rating.neptun %>">[attachment]</a>
+            </td>
+            <% } %>
+        </tr>
+    <% } %>
     </tbody>
 </table>
 
