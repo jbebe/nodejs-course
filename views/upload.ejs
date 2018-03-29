@@ -20,9 +20,9 @@
     <div class="form-group">
         <label for="taskSelect">Task</label>
         <select class="form-control" id="taskSelect" name="task">
-            <option>Task #1</option>
-            <option>Task #2</option>
-            <option>Task #3</option>
+            <% for (const task of tasks){ %>
+                <option value="<%= task.id %>"><%= task.id %> - <%= task.name %></option>
+            <% } %>
             <option disabled selected>Select task</option>
         </select>
     </div>

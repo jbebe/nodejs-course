@@ -84,7 +84,21 @@ exports.RenderUploadMW = function(req, res, next) {
     title: `${CourseCode}/upload`,
     courseCode: CourseCode,
     currentPage: 'upload',
-    uploadStatus: req.query.status
+    uploadStatus: req.query.status,
+    tasks: [
+      {
+        id: 1,
+        name: 'Alapok'
+      },
+      {
+        id: 2,
+        name: 'Fejlesztés'
+      },
+      {
+        id: 3,
+        name: 'Végleges'
+      }
+    ]
   };
   Object.assign(res.locals.template, template);
   res.render('upload', res.locals.template);
