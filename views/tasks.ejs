@@ -3,45 +3,16 @@
 <h1>Tasks</h1>
 
 <div class="task-list">
+    <% for (const task of tasks) { %>
     <div>
-        <h3><span class="task-title">Task #1</span> (deadline: <span class="task-date" data-id="1">2018-03-17T00:11</span>)
+        <h3><span class="task-title"><%= task.name %></span> (deadline: <span class="task-date" data-id="1"><%= task.deadline %></span>)
             <% if (isAdmin){ %>
-                <a href="/api/task/1" class="task-delete">[delete]</a>
+                <a href="/api/task/<%= task.id %>" class="task-delete">[delete]</a>
             <% } %>
         </h3>
-        <p class="task-description">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged.
-        </p>
+        <p class="task-description"><%= task.description %></p>
     </div>
-    <div>
-        <h3><span class="task-title">Task #2</span> (deadline: <span class="task-date" data-id="2">2018-03-17T00:11</span>)
-            <% if (isAdmin){ %>
-                <a href="/api/task/2" class="task-delete">[delete]</a>
-            <% } %>
-        </h3>
-        <p class="task-description">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged.
-        </p>
-    </div>
-    <div>
-        <h3><span class="task-title">Task #3</span> (deadline: <span class="task-date" data-id="3">2018-03-17T00:11</span>)
-            <% if (isAdmin){ %>
-                <a href="/api/task/3" class="task-delete">[delete]</a>
-            <% } %>
-        </h3>
-        <p class="task-description">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged.
-        </p>
-    </div>
+    <% } %>
     <% if (isAdmin){ %>
     <div class="card">
         <div class="card-body">
