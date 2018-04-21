@@ -29,8 +29,9 @@
                 <li class="list-group-item">
                     <h5><i class="fas fa-folder-open"></i> Task evaluation</h5>
                     <div class="list-group">
-                        <a href="/task/1" class="list-group-item list-group-item-action <%if(currentPage==='singleTask'){%>active<%}%>">Task 1</a>
-                        <a href="/task/2" class="list-group-item list-group-item-action">Task 2</a>
+                        <% for (const task of tasks) { %>
+                        <a href="/task/<%= task._id %>" class="list-group-item list-group-item-action <% if (currentPage === 'singleTask' && taskId === task_id){%>active<% } %>">Task <%= task._id %></a>
+                        <% } %>
                     </div>
                 </li>
                 <a href="/tasks" class="list-group-item list-group-item-action <%if(currentPage==='tasks'){%>active<%}%>">Tasks</a>
