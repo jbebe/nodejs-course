@@ -59,10 +59,13 @@ const Submission = module.exports.Submission = mongoose.model('submissions', Sub
 module.exports.initDb = (withTestData = false) => {
   mongoose.connect(DB_URL)
     .catch(console.log)
-    .then((self) => {
+    .then(async (self) => {
       console.log(`Connected to ${DB_URL}`);
-
-      if (withTestData){
+  
+      const courses = await Course.find().exec();
+      const tasks = await Task.find().exec();
+      if (courses.length === 0 || tasks.length === 0 || withTestData){
+        console.log('Filling db with test data because no course or tasks found...');
         // test instances
         const courseId = 'vitmav42';
         const taskIdList = [];
