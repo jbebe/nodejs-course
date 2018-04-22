@@ -75,3 +75,25 @@ $('.task-date').dblclick(function(event){
     $this.data('isEscapeRegistered', true);
   }
 });
+
+$('.create-new-task').submit(function(evt){
+  evt.preventDefault();
+  const $form = $(this);
+  const nameValueArr = $form.serializeArray();
+  const keyValueMap = {};
+  nameValueArr.reduce(
+    (_, curr) => (keyValueMap[curr.name] = curr.value),
+    null
+  );
+  $.ajax({
+    type: 'post',
+    url: '/api/task',
+    contentType: 'application/json',
+    data: JSON.stringify(keyValueMap)
+  }).done((data) => {
+    location.reload();
+  }).fail(() => {
+    console.log('Could not create new date!');
+  });
+  return false;
+});

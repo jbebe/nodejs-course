@@ -21,7 +21,7 @@
         <label for="taskSelect">Task</label>
         <select class="form-control" id="taskSelect" name="task">
             <% for (const task of tasks){ %>
-                <option value="<%= task.id %>"><%= task.id %> - <%= task.name %></option>
+                <option value="<%= task._id %>"><%= task._id %>: <%= task.name %></option>
             <% } %>
             <option disabled selected>Select task</option>
         </select>

@@ -1,6 +1,6 @@
 <% include header.ejs %>
 
-<h1>Task #1</h1>
+<h1>Task #<%= taskId %></h1>
 
 <table class="table table-sm task-evaluation-table">
     <thead class="thead-light">
@@ -15,11 +15,11 @@
     </tr>
     </thead>
     <tbody>
-    <% for (const rating of ratings){ %>
-        <tr class="<% if (rating.result !== 'OK') { %>table-danger<% } %>" data-task-id="<%= taskId %>" data-user-id="<%= rating.neptun %>">
+    <% for (const rating of submissions){ %>
+        <tr class="<%= { 'Bad': 'table-danger', 'Ok': '', 'Great': 'table-success' }[rating.rating] %>" data-task-id="<%= taskId %>" data-user-id="<%= rating.neptun %>">
             <th scope="row"><%= rating.neptun %></th>
-            <td class="late-chkbox"><input type="checkbox" disabled <% if (rating.isLate){ %>checked<% } %>></td>
-            <td class="result-value"><%= rating.result %></td>
+            <td class="late-chkbox"><input type="checkbox" disabled <% if (rating.late){ %>checked<% } %>></td>
+            <td class="result-value"><%= rating.rating %></td>
             <td class="comment-value"><%= rating.comment %></td>
             <% if (isAdmin){ %>
             <td>

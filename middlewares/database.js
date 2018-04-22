@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Course, Task } = require('./../db');
+const { Course, Task, Submission } = require('./../db');
 
 module.exports.DbLoadIndex = async (req, res, next) => {
   res.locals.course = await Course.findOne();
@@ -8,5 +8,11 @@ module.exports.DbLoadIndex = async (req, res, next) => {
 
 module.exports.DbLoadTasks = async (req, res, next) => {
   res.locals.tasks = await Task.find();
+  next();
+};
+
+module.exports.DbLoadSubmissions = async (req, res, next) => {
+  const taskId = req.params.id;
+  res.locals.submissions = await Submission.find({ task: taskId }).sort('neptun');
   next();
 };

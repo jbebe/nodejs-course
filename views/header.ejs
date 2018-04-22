@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js"></script>
+    <script> showdown.setOption('tables', true); </script>
 </head>
 <body>
 <% if (isAdmin){ %>
@@ -30,7 +32,7 @@
                     <h5><i class="fas fa-folder-open"></i> Task evaluation</h5>
                     <div class="list-group">
                         <% for (const task of tasks) { %>
-                        <a href="/task/<%= task._id %>" class="list-group-item list-group-item-action <% if (currentPage === 'singleTask' && taskId === task_id){%>active<% } %>">Task <%= task._id %></a>
+                        <a href="/task/<%= task._id %>" class="list-group-item list-group-item-action <% if (currentPage === 'singleTask' && taskId == task._id){%>active<% } %>">Task <%= task._id %></a>
                         <% } %>
                     </div>
                 </li>

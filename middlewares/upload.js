@@ -1,4 +1,7 @@
 const { validationResult } = require('express-validator/check');
+const { Submission, Task } = require('./../db');
+const path = require('path');
+const { CourseCode } = require("../config");
 
 /*
     Ez a MW validálja a feltöltéshez szükséges paramétereket
@@ -21,7 +24,7 @@ exports.ValidateUploadParamsMW = function(req, res, next){
 exports.ExportUploadParamsMW = function(req, res, next){
   res.locals.neptunCode = req.body.neptun;
   res.locals.taskName = req.body.task;
-  res.locals.file = req.body.file;
+  res.locals.file = req.files.file;
   next();
 };
 
@@ -30,5 +33,26 @@ exports.ExportUploadParamsMW = function(req, res, next){
  */
 exports.UploadToDbMW = function(req, res, next){
   console.log('uploading data to db...');
-  res.redirect('/upload?status=ok');
+  const dir = path.join(__dirname, '..', 'submissions');
+  const extension = res.locals.file.name.match(/((?:\.[^.]+)?\.[^.]+)$/g)[0];
+  const filePath = path.join(
+    dir,
+    `${CourseCode}-${res.locals.taskName}-${res.locals.neptunCode}${extension}`
+  );
+  res.locals.file.mv(filePath, function(err){
+    if (err){
+      return res.status(500).send(err);
+    } else {
+      const submission = new Submission({
+        path: `/api/upload/${res.locals.taskName}/${res.locals.neptunCode}`,
+        neptun: res.locals.neptunCode,
+        late: false,
+        rating: 'Bad',
+        comment: 'No comment yet',
+        task: res.locals.taskName
+      });
+      submission.save();
+      res.redirect('/upload?status=ok');
+    }
+  });
 };

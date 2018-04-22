@@ -5,9 +5,9 @@
 <div class="task-list">
     <% for (const task of tasks) { %>
     <div>
-        <h3><span class="task-title"><%= task.name %></span> (deadline: <span class="task-date" data-id="1"><%= task.deadline %></span>)
+        <h3><span class="task-title" data-id="<%= task._id %>"><%= task.name %></span> (deadline: <span class="task-date" data-id="<%= task._id %>"><%= task.deadline.toJSON().slice(0,-1) %></span>)
             <% if (isAdmin){ %>
-                <a href="/api/task/<%= task.id %>" class="task-delete">[delete]</a>
+                <a href="/api/task/<%= task._id %>" class="task-delete">[delete]</a>
             <% } %>
         </h3>
         <p class="task-description"><%= task.description %></p>
@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Create new task</h5>
-            <form method="post" action="/api/task">
+            <form method="post" action="/api/task" class="create-new-task">
             <div class="card-text">
 
                     <div class="form-group form-row">
