@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { CourseCode, AdminPassword } = require("../config");
+const { AdminPassword } = require("../config");
 
 const PassHash = crypto.createHmac('sha256', AdminPassword).digest('hex');
 

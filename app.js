@@ -11,7 +11,7 @@ const site = require('./routes/site');
 const api = require('./routes/api');
 const app = express();
 
-const { initDb } = require('./db');
+const { initDb } = require('./database/init');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

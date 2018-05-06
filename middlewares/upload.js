@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator/check');
-const { Submission, Task } = require('./../db');
+const { Submission, Task } = require('../database/schema');
 const path = require('path');
 const { CourseCode } = require("../config");
 
@@ -12,6 +12,17 @@ exports.ValidateUploadParamsMW = function(req, res, next){
   const error = validationResult(req);
   if (!error.isEmpty() || req.files.file === undefined){
     console.log(JSON.stringify(error.mapped()));
+    res.redirect('/upload?status=error');
+  } else {
+    next();
+  }
+};
+
+exports.ValidateUploadDeadlineMW = async function(req, res, next){
+  const taskName = parseInt(req.body.task);
+  const currentTask = await Task.findOne({ _id: taskName });
+  if (currentTask.deadline < new Date()){
+    console.log("Over the deadline!");
     res.redirect('/upload?status=error');
   } else {
     next();

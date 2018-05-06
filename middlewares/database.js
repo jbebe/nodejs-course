@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Course, Task, Submission } = require('./../db');
+const {Task, Submission, Course} = require('../database/schema');
 
 module.exports.DbLoadIndex = async (req, res, next) => {
   res.locals.course = await Course.findOne();

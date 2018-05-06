@@ -4,6 +4,7 @@ const { check } = require('express-validator/check');
 const {
   ExportUploadParamsMW,
   ValidateUploadParamsMW,
+  ValidateUploadDeadlineMW,
   UploadToDbMW
 } = require("../middlewares/upload");
 const {
@@ -16,7 +17,8 @@ const {
   ValidateApiParamsMW,
   DeleteTaskMW, UploadTaskParamsToDbMW,
   UploadNewTaskToDbMW,
-  UploadSubmissionParamsToDbMW
+  UploadSubmissionParamsToDbMW,
+  DownloadSubmissionMW
 } = require("../middlewares/api");
 
 const api = express.Router();
@@ -25,11 +27,16 @@ api.post('/admin', ApiLoginAdminMW);
 
 api.delete('/admin', ApiLogoutAdminMW);
 
+api.get('/upload/:task/:neptun',
+  DownloadSubmissionMW
+);
+
 api.post('/upload',
   [
     check('neptun').matches(/^[a-zA-Z\d]{6}$/),
-    check('task').exists()
+    check('task').isInt()
   ],
+  ValidateUploadDeadlineMW,
   ValidateUploadParamsMW,
   ExportUploadParamsMW,
   UploadToDbMW

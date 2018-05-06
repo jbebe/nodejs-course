@@ -23,7 +23,7 @@
             <td class="comment-value"><%= rating.comment %></td>
             <% if (isAdmin){ %>
             <td>
-                <a href="/api/task/<%= taskId %>/attachment/<%= rating.neptun %>">[attachment]</a>
+                <a href="/api/upload/<%= taskId %>/<%= rating.neptun %>">[attachment]</a>
             </td>
             <% } %>
         </tr>

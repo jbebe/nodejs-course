@@ -26,7 +26,7 @@ exports.RenderIndexMW = function(req, res, next){
   const template = {
     title: `${CourseCode}/info`,
     courseCode: CourseCode,
-    content: res.locals.course.info,
+    content: res.locals.course.info || "&gt;empty&lt;",
     currentPage: 'info'
   };
   Object.assign(res.locals.template, template);

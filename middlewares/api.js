@@ -1,6 +1,7 @@
+const fs = require("fs");
+const path = require("path");
 const { validationResult } = require('express-validator/check');
-const mongoose = require('mongoose');
-const { Course, Task, Submission } = require('./../db');
+const {Task, Submission, Course} = require('../database/schema');
 const { CourseCode } = require("../config");
 
 /*
@@ -23,7 +24,7 @@ exports.ValidateApiParamsMW = function(req, res, next){
     Ez a MW fog gondoskodni a biztosan elérhető 'info' paraméter DB-be kerüléséről.
  */
 exports.InfoToDbMW = function(req, res, next){
-  Course.update({ _id: CourseCode }, { $set: { info: req.body.content }}, console.log);
+  Course.update({ _id: CourseCode }, { $set: { info: req.body.content } }, console.log);
   console.log('putting info content into db');
   res.end();
 };
@@ -60,7 +61,7 @@ exports.UploadTaskParamsToDbMW = function(req, res, next){
  */
 exports.UploadNewTaskToDbMW = function(req, res, next){
   console.log('Uploading to DB... ' + JSON.stringify(req.body));
-  Task.find().sort({_id: -1}).limit(1).exec((err, maxTask) => {
+  Task.find().sort({ _id: -1 }).limit(1).exec((err, maxTask) =>{
     if (err){
       res.json(err);
       return;
@@ -102,4 +103,28 @@ exports.UploadSubmissionParamsToDbMW = function(req, res, next){
     Submission.update({ task: taskId, neptun: neptunId }, { $set: { comment: req.body.comment } }).exec();
   }
   res.end();
+};
+
+exports.DownloadSubmissionMW = function(req, res, next){
+  const taskName = req.params.task;
+  const neptunCode = req.params.neptun;
+  const dir = path.join(__dirname, '..', 'submissions');
+  fs.readdir(dir, (err, files) => {
+    console.log(err);
+    const file = files.find((fileName) =>
+      fileName.indexOf(`${CourseCode}-${taskName}-${neptunCode}`) === 0
+    );
+    if (file){
+      res.sendFile(path.join(dir, file), {
+        headers: {
+          'Content-Disposition': `attachment; filename="${file}"`
+        }
+      });
+    } else {
+      res.status(404).send({
+        error: `Cannot find file! (${dir}\\${CourseCode}-${taskName}-${neptunCode}.ext)`,
+        files: files.join(', ')
+      });
+    }
+  });
 };

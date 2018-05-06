@@ -24,8 +24,8 @@ $('.result-value').dblclick(function(event){
   const $this = $(this);
   $this.html(`<select>
       <option value="Bad">Bad</option>
-      <option value="OK">OK</option>
-      <option value="Good">Good</option>
+      <option value="Ok">Ok</option>
+      <option value="Great">Great</option>
   </select>`);
   $this.find('select').focus();
   $this.keydown(onResultEscape);
